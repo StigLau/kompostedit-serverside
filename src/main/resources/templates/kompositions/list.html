@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>Kompositions : View all</title>
+</head>
+<body>
+	<h1 layout:fragment="header">Kompositions : View all</h1>
+	<div layout:fragment="content" class="container">
+		<div class="pull-right">
+			<a href="form.html" th:href="@{/(form)}">Create Komposition</a>
+		</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>Reference</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${kompositions.empty}">
+					<td colspan="3">No kompositions</td>
+				</tr>
+				<tr th:each="komposition : ${kompositions}">
+					<td th:text="${komposition.id}">1</td>
+					<!--<td th:text="${#calendars.format(komposition.created)}">July 11,
+						2012 2:17:16 PM CDT</td> -->
+					<td><a href="view.html" th:href="@{'/' + ${komposition.id}}"
+						th:text="${komposition.reference}"> The reference </a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
