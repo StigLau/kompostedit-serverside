@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+<title>Segments : Create</title>
+</head>
+<body>
+	<h1 layout:fragment="header">Segments : Create</h1>
+	<div layout:fragment="content" class="container">
+		<form id="segmentForm" th:action="@{/segments/(form)}" th:object="${segment}"
+			action="#" method="post">
+			<div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
+				<p th:each="error : ${#fields.errors('*')}" th:text="${error}">
+					Validation error</p>
+			</div>
+			<div class="pull-right">
+				<a th:href="@{/}" href="segments.html"> Segments </a>
+			</div>
+			<input type="hidden" th:field="*{index}" th:class="${#fields.hasErrors('index')} ? 'field-error'" />
+
+			<label for="start">Id</label>
+            <input type="text" th:field="*{id}" th:class="${#fields.hasErrors('id')} ? 'field-error'" />
+
+			<label for="start">Start</label>
+            <input type="number" th:field="*{start}" th:class="${#fields.hasErrors('start')} ? 'field-error'" />
+
+            <label for="end">End</label>
+			<input type="number" th:field="*{end}" th:class="${#fields.hasErrors('end')} ? 'field-error'"/>
+
+			<div class="form-actions">
+				<input type="submit" value="Save" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

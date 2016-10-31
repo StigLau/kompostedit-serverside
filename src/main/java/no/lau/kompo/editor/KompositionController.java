@@ -1,34 +1,14 @@
-/*
- * Copyright 2012-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package no.lau.kompo.editor;
 
 import no.lau.kompo.editor.model.Komposition;
+import no.lau.kompo.editor.model.Segment;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.validation.Valid;
 
-/**
- * @author Rob Winch
- * @author Doo-Hwan Kwak
- */
 @Controller
 @RequestMapping("/")
 public class KompositionController {
@@ -49,6 +29,7 @@ public class KompositionController {
 	public ModelAndView view(@PathVariable("id") Komposition komposition) {
 		return new ModelAndView("kompositions/view", "komposition", komposition);
 	}
+
 
 	@GetMapping(params = "form")
 	public String createForm(@ModelAttribute Komposition komposition) {
@@ -82,5 +63,49 @@ public class KompositionController {
 	public ModelAndView modifyForm(@PathVariable("id") Komposition komposition) {
 		return new ModelAndView("kompositions/form", "kompositions", komposition);
 	}
+/*
+	@GetMapping(value = "segment/modify/{id}")
+	public ModelAndView modifySegment(@PathVariable("id") Long index) {
+		try {
+			Segment segment = kompositionRepository.findKomposition(1l).getSegmentByIndex(index);
+			return new ModelAndView("segments/form", "segments", segment);
+
+		} catch (Exception e) {
+			throw new RuntimeException("Segment with index " + index + " not found");
+		}
+	}
+
+	@GetMapping(value = "segment/delete/{id}")
+	public ModelAndView deleteSegment(@PathVariable("id") Long id) {
+		Komposition komposition = kompositionRepository.findKomposition(1l);
+		komposition.deleteSegmentWithIndex(id);
+		Iterable<Segment> segments = komposition.getSegments();
+		return new ModelAndView("segments/list", "segments", segments);
+	}
+
+
+	@GetMapping("segment/{id}")
+	public ModelAndView view(@PathVariable("id") Long index) {
+		Komposition komp1 = kompositionRepository.findKomposition(1l);
+		try {
+			Segment segment = komp1.getSegmentByIndex(index);
+			return new ModelAndView("segments/view", "segment", segment);
+		} catch (Exception ex) {
+			throw new RuntimeException("Not found", ex);
+		}
+	}
+
+	@GetMapping("segments")
+	public ModelAndView segmentList() {
+		Komposition komposition = this.kompositionRepository.findKomposition(1l);
+		return new ModelAndView("segments/list", "segments", komposition.getSegments());
+	}
+
+	@GetMapping(params = "segmentForm")
+	public String createSegmentForm(@ModelAttribute Segment segment) {
+		return "segments/form";
+	}
+*/
+
 
 }

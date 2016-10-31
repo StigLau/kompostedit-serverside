@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Segments : View all</title>
+</head>
+<body>
+<h1 layout:fragment="header">Segments : View all</h1>
+<div layout:fragment="content" class="container">
+    <div class="pull-right">
+        <a href="segment.html" th:href="@{/segments/(form)}">Create Segment</a>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Start</td>
+            <td>End</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:if="${segments.empty}">
+            <td colspan="3">No segments</td>
+        </tr>
+        <tr th:each="segment : ${segments}">
+            <td th:text="${segment.id}">segmentId</td>
+            <td th:text="${segment.start}">0</td>
+            <td th:text="${segment.end}">120</td>
+            <td><a href="view.html" th:href="@{'/segments/' + ${segment.index}}"
+                   th:text="${segment.id}">The reference </a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

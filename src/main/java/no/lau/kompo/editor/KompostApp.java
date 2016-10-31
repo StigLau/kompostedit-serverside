@@ -1,6 +1,7 @@
 package no.lau.kompo.editor;
 
 import no.lau.kompo.editor.model.Komposition;
+import no.lau.kompo.editor.model.Segment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +15,16 @@ public class KompostApp {
 		InMemoryKompositionRepository komp = new InMemoryKompositionRepository();
 		Komposition firstKomp = new Komposition();
 		firstKomp.setReference("Johny 1");
+		Segment segment1 = new Segment("Segment1", 0, 120);
+		segment1.setIndex(1l);
+		firstKomp.addSegment(segment1);
 		komp.save(firstKomp);
 		return komp;
+	}
+
+	@Bean
+	public SegmentRepository segmentRepository() {
+		return new InMemorySegmentRepository();
 	}
 
 	@Bean
